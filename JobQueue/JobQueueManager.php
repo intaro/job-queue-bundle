@@ -153,8 +153,8 @@ class JobQueueManager implements ConsumerInterface
     {
         $this->intervals = array();
 
-        foreach ($intervals as $interval)
-            $this->intervals[] = new \DateInterval('PT' . interval($interval) . 'S');
+        foreach ($intervals as $key => $interval)
+            $this->intervals[$key] = new \DateInterval('PT' . intval($interval) . 'S');
 
         return $this;
     }

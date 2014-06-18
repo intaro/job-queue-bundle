@@ -1,6 +1,7 @@
 # IntaroJobQueueBundle #
 
 ## About ##
+The Job Queue Bundle allows to manage recurring, and non recurring jobs. This bundle is based on oldsound/rabbitmq-bundle and uses rabbitMQ server to create job queues.
 
 ## Installation ##
 
@@ -37,16 +38,17 @@ $ composer update intaro/job-queue-bundle
 
 ```yaml
 intaro_job_queue:
+    class:  %intaro_job_queue.job_manager.class%
     intervals:
         integration_service: { value: 3600 }
     job_timeout: 60     # timeout for executing job command
-    environment: prod
+    environment: prod   # environment for executing commands
     durable: false
 ```
 
 ## Usage ##
 
-Add producers and consumers to the `old_sound_rabbit_mq` section in your configuration file:
+Add producers and consumers to the `old_sound_rabbit_mq` section in your configuration file. You can use job_execute_service callback to execute symfony command from job`s message:
 
 ```yaml
 old_sound_rabbit_mq:
@@ -86,6 +88,23 @@ Initiate cyclic update:
 ```
 
 Every day at 00:00:00 "acme:integration:main" command will be executed and "acme:integration:service" will be execudet every hour.
+
+You can extend job_manager and override getIntervals method. It should return array of intervals like ("intervalCode" => seconds). It can be usefull to change intarval value in realtime.
+
+
+### Available job options ###
+
+recurring - create recurring or non recurring job. (default - false)
+startDate - when start job executing (default - now)
+route - routing key to consumer
+intervalCode - code to find interval value for recurring job
+interval - interval for recurring job (default - 1 day)
+
+
+### Commands ###
+
+job-queue:clear - clears job_shedule and job_queue rabbitMQ queues.
+
 
 ## Consumers Script ##
 
