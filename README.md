@@ -1,7 +1,7 @@
 # IntaroJobQueueBundle #
 
 ## About ##
-The Job Queue Bundle allows to manage recurring, and non recurring jobs. This bundle is based on oldsound/rabbitmq-bundle and uses rabbitMQ server to create job queues.
+The Job Queue Bundle allows to manage recurring, and non recurring jobs. This bundle is based on **oldsound/rabbitmq-bundle** and uses rabbitMQ server to create job queues.
 
 ## Installation ##
 
@@ -89,21 +89,21 @@ Initiate cyclic update:
 
 Every day at 00:00:00 "acme:integration:main" command will be executed and "acme:integration:service" will be execudet every hour.
 
-You can extend job_manager and override getIntervals method. It should return array of intervals like ("intervalCode" => seconds). It can be usefull to change intarval value in realtime.
+You can extend job_manager and override **getIntervals** method. It should return array of intervals like ("intervalCode" => seconds). It can be usefull to change intarval value in realtime.
 
 
 ### Available job options ###
 
-recurring - create recurring or non recurring job. (default - false)
-startDate - when start job executing (default - now)
-route - routing key to consumer
-intervalCode - code to find interval value for recurring job
-interval - interval for recurring job (default - 1 day)
+* recurring - create recurring or non recurring job. (default - false)
+* startDate - when start job executing (default - now)
+* route - routing key to consumer
+* intervalCode - code to find interval value for recurring job
+* interval - interval for recurring job (default - 1 day)
 
 
 ### Commands ###
 
-job-queue:clear - clears job_shedule and job_queue rabbitMQ queues.
+**job-queue:clear** - clears job_shedule and job_queue rabbitMQ queues.
 
 
 ## Consumers Script ##
