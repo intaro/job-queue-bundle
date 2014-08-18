@@ -103,7 +103,7 @@ You can extend job_manager and override **getIntervals** method. It should retur
 
 ### Commands ###
 
-**job-queue:clear** - clears job_shedule and job_queue rabbitMQ queues.
+`job-queue:clear` - clears job_shedule and job_queue rabbitMQ queues.
 
 
 ## Consumers Script ##

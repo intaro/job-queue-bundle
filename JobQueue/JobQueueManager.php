@@ -53,7 +53,7 @@ class JobQueueManager implements ConsumerInterface
     {
         if (!$msg->has('application_headers') || !isset($msg->get('application_headers')['x-death']))
         {
-            sleep(1);
+            sleep(2);
             return false;
         }
 
@@ -76,10 +76,12 @@ class JobQueueManager implements ConsumerInterface
 
     public function clearJobsShedule()
     {
-        $consumer = $this->container->get('old_sound_rabbit_mq.jobs_consumer');
+        $consumer = $this->container->get('old_sound_rabbit_mq.job_queue_consumer');
         $consumer->purge();
-        $consumer = $this->container->get('old_sound_rabbit_mq.job_shedule_consumer');
-        $consumer->purge();
+
+        $producer = $this->container->get('old_sound_rabbit_mq.job_shedule_producer');
+        $producer->getChannel()->queue_delete('job_shedule', false, false, true);
+
         return true;
     }
 
